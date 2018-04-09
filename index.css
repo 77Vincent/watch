@@ -32,3 +32,13 @@ hgroup {
   z-index: 1;
   background-image: url(./images/seiko-sbgx263/hand-hour.png);
 }
+.crown {
+  position: absolute;
+  right: -100px;
+  height: 100%;
+  width: 100px;
+  background-image: url(./images/seiko-sbgx263/crown.png);
+  background-position: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
