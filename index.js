@@ -1,32 +1,51 @@
-function prefix0 (number, length) {
-  var diff = length - String(number).length
-  return Array(diff + 1).join(0) + number
-}
+var time = new Date()
 
-function getTime ()  {
-  var time = new Date()
-  var s = time.getSeconds()
-  var m = time.getMinutes()
-  var h = time.getHours()
-  var ms = time.getMilliseconds().toString()[0]
+var d = time.getDate()
+var s = time.getSeconds() * 6
+var m = time.getMinutes() * 6 + time.getSeconds() / 60 * 6
+var h = time.getHours() % 12 * 30 + time.getMinutes() / 60 * 30
 
-  return {
-    whole: prefix0(h,2) + ':' + prefix0(m,2) + ':' + prefix0(s,2) + ':' + ms,
-    ms: ms,
-    s: s,
-    m: m,
-    h: h
-  }
-}
+var size = 240
 
-setInterval(() => {
-  $('#time').html(getTime().whole)
-}, 100);
+$('.watch').css({
+  width: size + 'px',
+  height: size * 1.6 + 'px'
+})
+$('.hand').css({
+  width: size + 'px',
+  height: size + 'px',
+  'margin-top': 0 - size / 2 + 'px'
+})
 
-setInterval(() => {
-  var s = getTime().s + '.' + getTime().ms
+$('.hand-second').css({
+  transform: 'rotate(' + s + 'deg)'
+})
+$('.hand-minute').css({
+  transform: 'rotate(' + m + 'deg)'
+})
+$('.hand-hour').css({
+  transform: 'rotate(' + h + 'deg)'
+})
 
+setInterval(function () {
+  s += 6
   $('.hand-second').css({
-    transform: 'rotate(' + s * 6 + 'deg)'
+    transform: 'rotate(' + s + 'deg)'
   })
-}, 200);
+}, 1000);
+
+// second hand
+setInterval(function () {
+  m += 0.3 
+  $('.hand-minute').css({
+    transform: 'rotate(' + m + 'deg)'
+  })
+}, 3000);
+
+// hour hand
+setInterval(function () {
+  h += 0.25
+  $('.hand-hour').css({
+    transform: 'rotate(' + h + 'deg)'
+  })
+}, 30000);
